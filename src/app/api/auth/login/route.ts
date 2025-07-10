@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, password } = await request.json();
+    const { email, password, leetcodeUsername } = await request.json();
 
     if (!email || !password) {
       return NextResponse.json(
@@ -31,6 +31,15 @@ export async function POST(request: NextRequest) {
         { error: "Invalid email or password" },
         { status: 401 }
       );
+    }
+
+    // If user has no leetcodeUsername and client sent one, update
+    if (!user.leetcodeUsername && leetcodeUsername) {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { leetcodeUsername }
+      });
+      user.leetcodeUsername = leetcodeUsername;
     }
 
     // Return user data without password

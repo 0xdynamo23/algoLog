@@ -4,11 +4,11 @@ import bcrypt from "bcrypt";
 
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, password } = await request.json();
+    const { name, email, password, leetcodeUsername } = await request.json();
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !leetcodeUsername) {
       return NextResponse.json(
-        { error: "Name, email, and password are required" },
+        { error: "Name, email, password, and leetcodeUsername are required" },
         { status: 400 }
       );
     }
@@ -36,12 +36,17 @@ export async function POST(request: NextRequest) {
     const saltRounds = 12;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
+    // Determine role
+    const role = process.env.ADMIN_EMAIL && email === process.env.ADMIN_EMAIL ? "ADMIN" : "USER";
+
     // Create new user
     const newUser = await prisma.user.create({
       data: {
         name,
         email,
         password: hashedPassword,
+        leetcodeUsername,
+        role,
         streak: 0,
         coins: 0,
         completedDates: [],

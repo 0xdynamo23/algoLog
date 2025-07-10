@@ -37,7 +37,7 @@ export default function Navbar() {
 
   const navigation = [
     { name: "Dashboard", href: "/", icon: HomeIcon },
-    { name: "Solve Problems", href: "/solve", icon: CodeBracketIcon },
+    { name: "Leaderboard", href: "/leaderboard", icon: ChartBarIcon },
     { name: "Store", href: "/store", icon: ShoppingBagIcon },
   ];
 
@@ -163,7 +163,7 @@ export default function Navbar() {
                   <TrophyIcon className="w-5 h-5 text-green-600" />
                   <div>
                     <p className="text-xs text-green-600 dark:text-green-400 font-medium">Solved</p>
-                    <p className="text-lg font-bold text-green-700 dark:text-green-300">{user.completedProblems?.length || 0}</p>
+                    <p className="text-lg font-bold text-green-700 dark:text-green-300">{(user.completedProblems?.length ?? user.solved ?? 0)}</p>
                   </div>
                 </div>
               </div>
@@ -263,7 +263,7 @@ export default function Navbar() {
                     <TrophyIcon className="w-5 h-5 text-green-600" />
                     <div>
                       <p className="text-xs text-green-600 dark:text-green-400 font-medium">Solved</p>
-                      <p className="text-lg font-bold text-green-700 dark:text-green-300">{user.completedProblems?.length || 0}</p>
+                      <p className="text-lg font-bold text-green-700 dark:text-green-300">{(user.completedProblems?.length ?? user.solved ?? 0)}</p>
                     </div>
                   </div>
                 </div>

@@ -37,7 +37,7 @@ export default function HomePage() {
   }
 
   if (user) {
-    return <Dashboard />;
+    return <Dashboard userData={user} />;
   }
 
   // Landing page for non-authenticated users
