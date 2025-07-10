@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import LayoutWrapper from "@/components/LayoutWrapper";
+import Providers from "@/components/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,12 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className={`${inter.className} h-full bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900/20`}>
-        <div className="min-h-full">
-          <Navbar />
-          <LayoutWrapper>
-            {children}
-          </LayoutWrapper>
-        </div>
+        <Providers>
+          <div className="min-h-full">
+            <Navbar />
+            <LayoutWrapper>{children}</LayoutWrapper>
+          </div>
+        </Providers>
       </body>
     </html>
   );

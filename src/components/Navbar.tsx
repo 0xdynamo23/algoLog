@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { 
@@ -15,23 +15,20 @@ import {
   UserCircleIcon,
   ArrowRightOnRectangleIcon
 } from "@heroicons/react/24/outline";
+import { useSelector } from "react-redux";
 
 export default function Navbar() {
-  const [user, setUser] = useState<any>(null);
+  const user = useSelector((state:any)=>state.user);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
-    const userData = localStorage.getItem("user");
-    if (userData) {
-      setUser(JSON.parse(userData));
-    }
+    // user is sourced from redux preloaded state
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
-    setUser(null);
     router.push("/");
   };
 
